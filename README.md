@@ -54,7 +54,7 @@ Example in settings.json file:
     "PreValidateDnsRetryCount": 5,
     "PreValidateDnsRetryInterval": 150,
 
-####Information on using WACS
+#### Information on using WACS
 
-Please see win-acme website found at (https://www.win-acme.com/)
+Please see win-acme website found at https://www.win-acme.com
  
