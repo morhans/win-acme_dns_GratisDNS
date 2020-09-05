@@ -11,7 +11,7 @@ This is my first powershell script. So, any ideas and better ways of doing thing
 
 ### What is this?
 
-This is a dns api for use with [wacs](https://win-acme.com)
+This is a dns api for use with [wacs](https://win-acme.com) that uses Let's Encrypt for issuing certificates.
 It enables you to automatically update gratisdns.dk dns-records for
 your domains hosted on their dns servers.
 
