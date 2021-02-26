@@ -1,12 +1,13 @@
-﻿#Author: Morten Hansen
+#Author: Morten Hansen
 #
 #
 # Note: Script requires the credentials is set before add and remove functionality can be used.
 #       Do this by running the script with option setcred. 
 #
 #Version history:
-#1.0 : Initial version
-#1.1 : Add functionality to handle GratisDNS Accept Terms requirement. 
+#1.0   : Initial version
+#1.1   : Add functionality to handle GratisDNS Accept Terms requirement.
+#1.1.1 : Added UseBasicParsing so user without iexplorer configured works ex. system user 
 
 $global:apiRoot = 'https://admin.gratisdns.com'
 
@@ -36,7 +37,7 @@ function Add-DnsTxtGDNS {
     $url = "$apiRoot/?action=dns_primary_record_added_txt&user_domain=$ZoneName&name=$RecordName&txtdata=$txtvalue&ttl=1"
     Write-Verbose "Adding $RecordName with value $TxtValue to $ZoneName"
     try {    
-        $webrequest = Invoke-WebRequest -Uri $url -WebSession $loginsess
+        $webrequest = Invoke-WebRequest -Uri $url -WebSession $loginsess -UseBasicParsing
         $StatusCode = $webrequest.StatusCode
     }
     catch {
@@ -97,7 +98,7 @@ function Remove-DnsTxtGDNS {
     Write-Verbose "Removing $RecordName with value $TxtValue from $Identifier"
     $url = "$apiRoot/?action=dns_primary_delete_txt&user_domain=$ZoneName&id=$RecId"
     try {    
-        $webrequest = Invoke-WebRequest -Uri $url -WebSession $loginsess
+        $webrequest = Invoke-WebRequest -Uri $url -WebSession $loginsess -UseBasicParsing
         $StatusCode = $webrequest.StatusCode
     }
     catch {
@@ -159,7 +160,7 @@ function Check-GDNSTOC {
     )
     
     try {        
-        $webrequest = Invoke-WebRequest -Uri $url -WebSession $loginsess
+        $webrequest = Invoke-WebRequest -Uri $url -WebSession $loginsess -UseBasicParsing
         $StatusCode = $webrequest.StatusCode
     }
     catch {
@@ -181,7 +182,7 @@ function Find-GDNSZone {
 
     $url = "$apiRoot/?action=dns_primarydns"
     try {        
-        $webrequest = Invoke-WebRequest -Uri $url -WebSession $loginsess
+        $webrequest = Invoke-WebRequest -Uri $url -WebSession $loginsess -UseBasicParsing
         $StatusCode = $webrequest.StatusCode
     }
     catch {
@@ -215,7 +216,7 @@ function Find-GDNSRecordId {
     $url = "$apiRoot/?action=dns_primary_changeDNSsetup&user_domain=$ZoneName"
 
     try {    
-        $webrequest = Invoke-WebRequest -Uri $url -WebSession $loginsess
+        $webrequest = Invoke-WebRequest -Uri $url -WebSession $loginsess -UseBasicParsing
         $StatusCode = $webrequest.StatusCode
     }
     catch {
@@ -267,7 +268,7 @@ function gratisdns_login {
     [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
    
     try {
-        $webrequest = Invoke-WebRequest -Uri $url -SessionVariable websession
+        $webrequest = Invoke-WebRequest -Uri $url -SessionVariable websession -UseBasicParsing
         $StatusCode = $webrequest.StatusCode
     }
     catch {
@@ -282,7 +283,7 @@ function gratisdns_login {
         if($AcceptTerms) {
             $url = "$apiRoot/?approveterms=yes"
             try {    
-                $webrequest = Invoke-WebRequest -Uri $url -WebSession $websession
+                $webrequest = Invoke-WebRequest -Uri $url -WebSession $websession -UseBasicParsing
                 $StatusCode = $webrequest.StatusCode
             }
             catch {
