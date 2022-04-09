@@ -1,3 +1,5 @@
+# Gratisdns.dk has been bought by one.com and this script is no longer working
+
 # win-acme dns api for danish DNS provider gratisdns.dk
 win-acme_dns_GratisDNS
 
